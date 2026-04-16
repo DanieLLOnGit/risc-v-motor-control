@@ -1,0 +1,8 @@
+*.vcd
+*.fst
+__pycache__/
+sim_build/
+*.pyc
+*.o
+*.d
+.DS_Store
