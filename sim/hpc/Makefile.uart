@@ -1,0 +1,12 @@
+SIM              = verilator
+TOPLEVEL_LANG    = verilog
+VERILOG_SOURCES  = ../../rtl/hpc/crc16_ibm.sv \
+                   ../../rtl/hpc/uart_dynamixel.sv \
+                   ../../rtl/soc/hpc_regfile.sv
+TOPLEVEL         = uart_dynamixel
+MODULE           = test_uart
+COMPILE_ARGS    += --timing --sv
+EXTRA_ARGS      += --trace-fst
+SIM_BUILD        = /tmp/robo-v-sim/uart
+
+include $(shell cocotb-config --makefiles)/Makefile.sim
