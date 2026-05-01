@@ -1,8 +1,3 @@
-"""
-Cocotb testbench for uart_dynamixel.sv
-Dynamixel Protocol 2.0 — READ_POSITION command + STATUS response parsing
-"""
-
 import cocotb
 from cocotb.clock import Clock
 from cocotb.triggers import RisingEdge, ClockCycles, FallingEdge
