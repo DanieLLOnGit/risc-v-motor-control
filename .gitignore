@@ -7,3 +7,5 @@ sim_build/
 *.d
 .DS_Store
 results.xml
+firmware/firmware.elf
+firmware/firmware.hex
