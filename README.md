@@ -1,7 +1,7 @@
 # RISC-V Motor Control
 
 Standalone RISC-V SoC for real-time Dynamixel motor control - no host processor required.
-The RV32I CPU runs the full position read → FIR filter → PID loop onboard, targeting ASIC fabrication on SkyWater 130nm via TinyTapeout/OpenLane.
+The RV32I CPU runs the full position read -> FIR filter -> PID loop onboard, targeting ASIC fabrication on SkyWater 130nm via TinyTapeout/OpenLane.
 
 ---
 
@@ -20,8 +20,8 @@ Dynamixel servo
        └─ uart_dynamixel FSM - strips header, validates CRC-16
             └─ raw 12-bit position written to DMEM
                  └─ FIR filter - 32-tap Hamming window, Q1.15 fixed-point
-                      └─ filtered position → PID loop (main.c)
-                           └─ goal position command packet → uart_dynamixel TX
+                      └─ filtered position -> PID loop (main.c)
+                           └─ goal position command packet -> uart_dynamixel TX
                                 └─ Dynamixel servo
 ```
 
@@ -47,8 +47,8 @@ risc-v-motor-control/
 ├── firmware/                   # Bare-metal C firmware (RV32I)
 │   ├── crt0.s                  # Assembly startup: set sp, call main, trap loop
 │   ├── link.ld                 # Linker script: .text @ 0x0000_0000, .data @ 0x0001_0000
-│   ├── main.c                  # Servo read → FIR filter → PID control loop
-│   └── Makefile                # riscv-gcc → firmware.elf → firmware.hex
+│   ├── main.c                  # Servo read -> FIR filter -> PID control loop
+│   └── Makefile                # riscv-gcc -> firmware.elf -> firmware.hex
 │
 ├── sim/                        # Cocotb + Verilator testbenches
 │   ├── dsp/
@@ -108,7 +108,7 @@ risc-v-motor-control/
 | Tool | Purpose |
 |---|---|
 | [Docker Desktop](https://www.docker.com/products/docker-desktop/) | Provides the containerised environment that OpenLane runs inside, isolating all EDA tool dependencies from the host system |
-| [OpenLane](https://github.com/efabless/openlane) | Automated RTL-to-GDSII flow (synthesis → floorplan → placement → routing → signoff) targeting the Sky130 PDK |
+| [OpenLane](https://github.com/efabless/openlane) | Automated RTL-to-GDSII flow (synthesis -> floorplan -> placement -> routing -> signoff) targeting the Sky130 PDK |
 | [KLayout](https://www.klayout.de) | GDSII viewer and DRC runner - used to inspect final layout and run SkyWater design-rule checks before tapeout |
 | [Magic VLSI](https://github.com/RTimothyEdwards/magic) | Parasitic extraction (RC) and LVS verification against the post-layout netlist |
 | [Sky130 PDK](https://github.com/RTimothyEdwards/open_pdks) | SkyWater 130nm process design kit - standard cell libraries, DRC/LVS rules, and SPICE models required by every tool in the flow |
@@ -119,7 +119,7 @@ risc-v-motor-control/
 
 ```bash
 # Firmware
-cd firmware && make               # → firmware.hex (loaded into IMEM at sim time)
+cd firmware && make               # -> firmware.hex (loaded into IMEM at sim time)
 
 # Simulations (each dir has its own Makefile)
 cd sim/dsp && make                # FIR filter - 4 tests
@@ -128,6 +128,6 @@ cd sim/hpc && make -f Makefile.uart  # UART + HPC regfile - 3 tests
 cd sim/soc && make                # Full SoC integration - 3 tests
 
 # Synthesis (Yosys standalone, no Docker)
-cd syn && make clean && make      # → results/soc_netlist.v, area.rpt, synth.log
+cd syn && make clean && make      # -> results/soc_netlist.v, area.rpt, synth.log
 ```
 
