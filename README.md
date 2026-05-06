@@ -117,17 +117,31 @@ risc-v-motor-control/
 
 ## Quick Start
 
+### 1. Clone
+```bash
+git clone --recurse-submodules https://github.com/DanieLLOnGit/risc-v-motor-control.git
+cd risc-v-motor-control
+```
+
+### 2. Install dependencies
+```bash
+brew install verilator yosys python3
+brew install riscv-software-src/riscv/riscv-gnu-toolchain
+pip install cocotb
+```
+
+### 3. Build & test
 ```bash
 # Firmware
-cd firmware && make               # -> firmware.hex (loaded into IMEM at sim time)
+cd firmware && make
 
-# Simulations (each dir has its own Makefile)
-cd sim/dsp && make                # FIR filter - 4 tests
-cd sim/hpc && make                # CRC engine
-cd sim/hpc && make -f Makefile.uart  # UART + HPC regfile - 3 tests
-cd sim/soc && make                # Full SoC integration - 3 tests
+# Simulations
+cd sim/dsp && make                       # FIR filter - 4 tests
+cd sim/hpc && make                       # CRC engine
+cd sim/hpc && make -f Makefile.uart      # UART + HPC regfile - 3 tests
+cd sim/soc && make                       # Full SoC integration - 3 tests
 
 # Synthesis (Yosys standalone, no Docker)
-cd syn && make clean && make      # -> results/soc_netlist.v, area.rpt, synth.log
+cd syn && make clean && make             # -> results/soc_netlist.v, area.rpt, synth.log
 ```
 
