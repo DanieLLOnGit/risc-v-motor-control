@@ -10,7 +10,7 @@ The RV32I CPU runs the full position read → FIR filter → PID loop onboard, t
 ### [Dynamixel XC430-T150BBT](https://www.robotis.us/dynamixel-xc430-t150bb-t/)
 The servo communicates over a single TTL half-duplex wire using Dynamixel Protocol 2.0 — the SoC sends a command packet, tri-states the line, then reads back the status response on the same pin. This bus behavior is implemented entirely in `uart_dynamixel.sv`, with CRC-16/IBM packet validation handled by `crc16_ibm.sv`. The servo's 12-bit encoder (4096 counts/rev) is the position feedback source; those raw values are piped through the on-chip FIR filter before entering the PID loop in firmware.
 
-### SkyWater 130nm (Sky130B)
+### [SkyWater 130nm (Sky130B)](https://github.com/google/skywater-pdk)
 The SoC RTL targets the Sky130B PDK at 50 MHz. The OpenLane flow (`syn/config.json`) drives synthesis through floorplan, placement, and routing to produce a tapeout-ready GDSII. TinyTapeout is the submission vehicle — it aggregates small open-source designs onto a shared reticle, making per-design silicon cost tractable.
 
 ### Signal Chain
