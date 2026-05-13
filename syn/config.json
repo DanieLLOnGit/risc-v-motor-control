@@ -1,0 +1,19 @@
+{
+    "DESIGN_NAME": "soc",
+    "VERILOG_FILES": [
+        "dir::../rtl/cpu/picorv32.v",
+        "dir::../rtl/dsp/fir_filter.sv",
+        "dir::../rtl/hpc/crc16_ibm.sv",
+        "dir::../rtl/hpc/uart_dynamixel.sv",
+        "dir::../rtl/soc/hpc_regfile.sv",
+        "dir::../rtl/soc/soc.sv"
+    ],
+    "CLOCK_PORT": "clk_i",
+    "CLOCK_PERIOD": 20.0,
+    "FP_CORE_UTIL": 40,
+    "PL_TARGET_DENSITY": 0.4,
+    "SYNTH_STRATEGY": "AREA 0",
+    "BASE_SDC_FILE": "dir::constraints.sdc",
+    "PDK_ROOT": "/Users/danielye/tools/open_pdks/sky130",
+    "PDK": "sky130A"
+}
