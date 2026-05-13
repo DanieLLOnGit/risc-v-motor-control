@@ -27,16 +27,45 @@ module fir_filter (
 
     // Coefficients — 32-tap Hamming-windowed lowpass, Fc=1kHz, Fs=50MHz
     // Q1.15 format: value = real * 2^15, symmetric linear-phase FIR
-    localparam logic [15:0] COEFF_INIT [0:31] = '{
-        16'h009C, 16'h00AE, 16'h00E4, 16'h013C,
-        16'h01B3, 16'h0242, 16'h02E5, 16'h0394,
-        16'h0449, 16'h04FD, 16'h05A7, 16'h0641,
-        16'h06C4, 16'h072C, 16'h0773, 16'h0798,
-        16'h0798, 16'h0773, 16'h072C, 16'h06C4,
-        16'h0641, 16'h05A7, 16'h04FD, 16'h0449,
-        16'h0394, 16'h02E5, 16'h0242, 16'h01B3,
-        16'h013C, 16'h00E4, 16'h00AE, 16'h009C
-    };
+    // Returned by function (unpacked array localparams are not Yosys-compatible)
+    function automatic logic [15:0] coeff_init;
+        input logic [4:0] idx;
+        case (idx)
+            5'd0:  coeff_init = 16'h009C;
+            5'd1:  coeff_init = 16'h00AE;
+            5'd2:  coeff_init = 16'h00E4;
+            5'd3:  coeff_init = 16'h013C;
+            5'd4:  coeff_init = 16'h01B3;
+            5'd5:  coeff_init = 16'h0242;
+            5'd6:  coeff_init = 16'h02E5;
+            5'd7:  coeff_init = 16'h0394;
+            5'd8:  coeff_init = 16'h0449;
+            5'd9:  coeff_init = 16'h04FD;
+            5'd10: coeff_init = 16'h05A7;
+            5'd11: coeff_init = 16'h0641;
+            5'd12: coeff_init = 16'h06C4;
+            5'd13: coeff_init = 16'h072C;
+            5'd14: coeff_init = 16'h0773;
+            5'd15: coeff_init = 16'h0798;
+            5'd16: coeff_init = 16'h0798;
+            5'd17: coeff_init = 16'h0773;
+            5'd18: coeff_init = 16'h072C;
+            5'd19: coeff_init = 16'h06C4;
+            5'd20: coeff_init = 16'h0641;
+            5'd21: coeff_init = 16'h05A7;
+            5'd22: coeff_init = 16'h04FD;
+            5'd23: coeff_init = 16'h0449;
+            5'd24: coeff_init = 16'h0394;
+            5'd25: coeff_init = 16'h02E5;
+            5'd26: coeff_init = 16'h0242;
+            5'd27: coeff_init = 16'h01B3;
+            5'd28: coeff_init = 16'h013C;
+            5'd29: coeff_init = 16'h00E4;
+            5'd30: coeff_init = 16'h00AE;
+            5'd31: coeff_init = 16'h009C;
+            default: coeff_init = 16'h0000;
+        endcase
+    endfunction
 
     // Internal state
     typedef enum logic [1:0] {IDLE, COMPUTE, OUTPUT} state_t;
@@ -149,7 +178,7 @@ module fir_filter (
             ack_o <= 1'b0;
             for (int i = 0; i < 32; i++) begin
                 sample_sr[i] <= '0;
-                coeff[i] <= COEFF_INIT[i];
+                coeff[i] <= coeff_init(5'(i));
             end
         end else begin
             ack_o <= cyc_i & stb_i & ~ack_o;

@@ -1,17 +1,3 @@
-/*
- * main.c — Robo-V SoC firmware
- *
- * Top-level control loop:
- *   1. Send Dynamixel READ_POSITION command via uart_dynamixel
- *   2. Wait for response, get raw encoder position
- *   3. Push raw position through FIR filter (noise suppression)
- *   4. Store filtered position (PID controller stub — Week 4+)
- *
- * Memory map (matches rtl/ register maps exactly):
- *   0x0002_0000  DSP engine — fir_filter.sv
- *   0x0003_0080  HPC engine — uart_dynamixel.sv (adr_i[7]=1 in hpc_regfile)
- */
-
 #include <stdint.h>
 
  //DSP engine — fir_filter.sv register offsets

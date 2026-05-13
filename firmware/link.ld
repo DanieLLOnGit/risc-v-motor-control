@@ -1,11 +1,3 @@
-/*
- * link.ld — linker script for Robo-V SoC
- *
- * Memory map:
- *   IMEM 0x0000_0000 4 KB (instruction memory, read-only at runtime)
- *   DMEM 0x0001_0000 4 KB (data memory, stack lives at top)
- */
-
 MEMORY
 {
     IMEM (rx) : ORIGIN = 0x00000000, LENGTH = 4K
